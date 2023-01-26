@@ -1,16 +1,15 @@
 # login_page
+Create login page using Firebase
 
-A new Flutter project.
+## Screens
+- Login page 
+- Register page
+- Profile page
 
-## Getting Started
+## Note from Developer
+- working on Refresh pages
+- Error is not showing (wrong password, user not found)
+- working on UI of Profile page
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+## Connect with me
+- [Linkedin](https://www.linkedin.com/in/mansi-joshi-663aa81a0/)
