@@ -94,4 +94,10 @@ class FireAuth {
     User? refreshedUser = auth.currentUser;
     return refreshedUser;
   }
+
+  // reset the password
+  static Future<void> resetPassword({required String email}) async {
+    FirebaseAuth auth = FirebaseAuth.instance;
+    await auth.sendPasswordResetEmail(email: email);
+  }
 }
