@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:login_page/screens/Login_page.dart';
 import 'package:login_page/screens/Profile_page.dart';
 import '../authentication/fire_auth.dart';
 import '../authentication/google_signIn.dart';
@@ -24,7 +25,7 @@ class _RegisterPageState extends State<RegisterPage> {
   bool _isProcessing = false;
   bool _isSignInGoogle = false;
   bool passwordVisible = true;
-
+  var error;
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
@@ -37,6 +38,25 @@ class _RegisterPageState extends State<RegisterPage> {
           appBar: AppBar(
             centerTitle: true,
             title: const Text('Get Register!!'),
+            automaticallyImplyLeading: false,
+            actions: <Widget>[
+              Padding(
+                padding: const EdgeInsets.only(right: 20.0),
+                child: GestureDetector(
+                  onTap: () async {
+                    Navigator.of(context).pushReplacement(
+                      MaterialPageRoute(
+                          builder: (BuildContext context) =>
+                              const RegisterPage()),
+                    );
+                  },
+                  child: const Icon(
+                    Icons.refresh,
+                    size: 26.0,
+                  ),
+                ),
+              ),
+            ],
           ),
           body: Padding(
             padding: const EdgeInsets.all(24),
@@ -149,11 +169,32 @@ class _RegisterPageState extends State<RegisterPage> {
                                               ),
                                               ModalRoute.withName('/'),
                                             );
+                                          } else {
+                                            error =
+                                                "Account already in use or Password is too weak, try again!";
+                                            _showAlertDialog(error);
                                           }
                                         }
                                       },
                                       child: const Text(
                                         'Sign up',
+                                        style: TextStyle(color: Colors.white),
+                                      ),
+                                    ),
+                                  ),
+                                  const SizedBox(width: 24),
+                                  Expanded(
+                                    child: ElevatedButton(
+                                      onPressed: () {
+                                        Navigator.of(context).push(
+                                          MaterialPageRoute(
+                                            builder: (context) =>
+                                                const LoginPage(),
+                                          ),
+                                        );
+                                      },
+                                      child: const Text(
+                                        'Already have Account?',
                                         style: TextStyle(color: Colors.white),
                                       ),
                                     ),
@@ -200,6 +241,10 @@ class _RegisterPageState extends State<RegisterPage> {
                                         ),
                                       ),
                                     );
+                                  } else {
+                                    error =
+                                        "Error in Google SignIn, Try again!!";
+                                    _showAlertDialog(error);
                                   }
                                 },
                                 child: Row(
@@ -231,5 +276,31 @@ class _RegisterPageState extends State<RegisterPage> {
             ),
           )),
     );
+  }
+
+  _showAlertDialog(error) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text(
+              'Register Failed',
+              style: TextStyle(color: Colors.redAccent),
+            ),
+            content: Text(error),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () async {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) =>
+                            const RegisterPage()),
+                  );
+                },
+              )
+            ],
+          );
+        });
   }
 }
