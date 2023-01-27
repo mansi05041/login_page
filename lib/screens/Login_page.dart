@@ -5,6 +5,7 @@ import 'package:login_page/authentication/fire_auth.dart';
 import 'package:login_page/authentication/google_signIn.dart';
 import 'package:login_page/screens/Profile_page.dart';
 import 'package:login_page/screens/Register_page.dart';
+import 'package:login_page/screens/reset_password.dart';
 import 'package:login_page/utility/validator.dart';
 
 class LoginPage extends StatefulWidget {
@@ -138,6 +139,16 @@ class _LoginPageState extends State<LoginPage> {
                               ),
                             ),
                           ),
+                          TextButton(
+                            onPressed: () async {
+                              Navigator.of(context).pushReplacement(
+                                MaterialPageRoute(
+                                  builder: (context) => const ResetPassword(),
+                                ),
+                              );
+                            },
+                            child: const Text("Forget Password?"),
+                          ),
                           const SizedBox(height: 24),
                           _isProcessing
                               ? const CircularProgressIndicator(value: 0.2)
@@ -206,7 +217,7 @@ class _LoginPageState extends State<LoginPage> {
                                     ),
                                   ],
                                 ),
-                          const SizedBox(height: 24),
+                          const SizedBox(height: 16),
                           _isSignInGoogle
                               ? const CircularProgressIndicator(value: 0.2)
                               : OutlinedButton(
