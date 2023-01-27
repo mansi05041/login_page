@@ -24,6 +24,7 @@ class _LoginPageState extends State<LoginPage> {
   bool _isProcessing = false;
   bool _isSignInGoogle = false;
   bool passwordVisible = true;
+  var error;
 
   // Initialize Firebase App
   Future<FirebaseApp> _initializeFirebase() async {
@@ -49,6 +50,24 @@ class _LoginPageState extends State<LoginPage> {
         appBar: AppBar(
           centerTitle: true,
           title: const Text('Login Here'),
+          automaticallyImplyLeading: false,
+          actions: <Widget>[
+            Padding(
+              padding: const EdgeInsets.only(right: 20.0),
+              child: GestureDetector(
+                onTap: () async {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginPage()),
+                  );
+                },
+                child: const Icon(
+                  Icons.refresh,
+                  size: 26.0,
+                ),
+              ),
+            ),
+          ],
         ),
         body: FutureBuilder(
           future: _initializeFirebase(),
@@ -155,6 +174,10 @@ class _LoginPageState extends State<LoginPage> {
                                                       ProfilePage(user: user),
                                                 ),
                                               );
+                                            } else {
+                                              error =
+                                                  "Wrong Password or Email, Try Again!!";
+                                              _showAlertDialog(error);
                                             }
                                           }
                                         },
@@ -215,6 +238,9 @@ class _LoginPageState extends State<LoginPage> {
                                           ),
                                         ),
                                       );
+                                    } else {
+                                      error = "Not able to signIn using Google";
+                                      _showAlertDialog(error);
                                     }
                                   },
                                   child: Row(
@@ -254,5 +280,30 @@ class _LoginPageState extends State<LoginPage> {
         ),
       ),
     );
+  }
+
+  _showAlertDialog(error) {
+    return showDialog(
+        context: context,
+        builder: (context) {
+          return AlertDialog(
+            title: const Text(
+              'Login Failed',
+              style: TextStyle(color: Colors.redAccent),
+            ),
+            content: Text(error),
+            actions: <Widget>[
+              IconButton(
+                icon: const Icon(Icons.refresh),
+                onPressed: () async {
+                  Navigator.of(context).pushReplacement(
+                    MaterialPageRoute(
+                        builder: (BuildContext context) => const LoginPage()),
+                  );
+                },
+              )
+            ],
+          );
+        });
   }
 }
