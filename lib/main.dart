@@ -16,7 +16,7 @@ void main() async {
             authDomain: Constants.authDomain,
             projectId: Constants.projectId));
   } else {
-    // run the intialozation for android
+    // run the intialization for android
     await Firebase.initializeApp();
   }
   runApp(MyApp());
