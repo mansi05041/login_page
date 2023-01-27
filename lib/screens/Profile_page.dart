@@ -27,6 +27,7 @@ class _ProfilePageState extends State<ProfilePage> {
       appBar: AppBar(
         centerTitle: true,
         title: const Text('Profile'),
+        automaticallyImplyLeading: false,
       ),
       body: Center(
         child: Column(
